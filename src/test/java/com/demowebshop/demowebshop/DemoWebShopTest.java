@@ -72,9 +72,7 @@ public class DemoWebShopTest {
         driver.findElement(By.linkText("Build your own cheap computer")).click();
 
         // Get the price details and enter the quantity (more than one)
-        String price = driver.findElement(By.xpath("//*[@class='product-price']")).getText();
-        System.out.println(price);
-      
+        String price = driver.findElement(By.xpath("//*[@class='product-price']")).getText();     
         Actions actions = new Actions(driver);
         WebElement qty = driver.findElement(By.xpath("//input[@id='addtocart_72_EnteredQuantity']"));
         actions.moveToElement(qty).build().perform();
@@ -137,7 +135,6 @@ public class DemoWebShopTest {
         // Validate the message “Your order has been successfully processed!” and print the Order number
         Thread.sleep(10000);
         String verifyMessageforOrderSuccess = driver.findElement(By.xpath("//*[@class='title']")).getText();
-        System.out.println(verifyMessageforOrderSuccess);
         assert(verifyMessageforOrderSuccess.equals("Your order has been successfully processed!"));
         String orderNo = driver.findElement(By.xpath("//*[@class='details']/li[1]")).getText();
         System.out.println(orderNo);
