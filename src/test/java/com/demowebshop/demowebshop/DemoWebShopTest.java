@@ -1,6 +1,6 @@
 package com.demowebshop.demowebshop;
 
-import java.time.Duration;
+import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -13,9 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DemoWebShopTest {
 
@@ -72,12 +70,16 @@ public class DemoWebShopTest {
         driver.findElement(By.linkText("Build your own cheap computer")).click();
 
         // Get the price details and enter the quantity (more than one)
-        String price = driver.findElement(By.xpath("//*[@class='product-price']")).getText();     
+        driver.findElement(By.xpath("//*[contains(text(), 'Slow')]")).click();
+        String price = driver.findElement(By.xpath("//*[@class='product-price']")).getText();
+        BigDecimal decimalNumber = new BigDecimal(price);
+        int convPrice = decimalNumber.intValue();
         Actions actions = new Actions(driver);
         WebElement qty = driver.findElement(By.xpath("//input[@id='addtocart_72_EnteredQuantity']"));
         actions.moveToElement(qty).build().perform();
         qty.clear();
         qty.sendKeys("2");
+        int finalPrice = convPrice * 2 ;
 
         // Click on “Add to cart”
         driver.findElement(By.xpath("//*[@class='add-to-cart-panel']//*[@value='Add to cart']")).click();
@@ -90,6 +92,9 @@ public class DemoWebShopTest {
         ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,-1000)");
         driver.findElement(By.className("cart-label")).click();
         String subTotal = driver.findElement(By.xpath("//*[text()='Sub-Total:']/../following-sibling::td//span[@class='product-price']")).getText();
+        BigDecimal decimalNumber1 = new BigDecimal(subTotal);
+        int convSubTotal = decimalNumber1.intValue();
+        assert(Integer.valueOf(convSubTotal).equals(finalPrice));
 
         // Select I agree Checkbox
         driver.findElement(By.id("termsofservice")).click();
