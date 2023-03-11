@@ -151,9 +151,9 @@ public class DemoWebShopTest {
         driver.findElement(By.xpath("//*[@class='button-2 order-completed-continue-button']")).click();
         driver.findElement(By.className("ico-logout")).click();
     }
-    /*
+    
     @After
     public void closeBrowser() {
         driver.close();
-    }*/
+    }
 }
