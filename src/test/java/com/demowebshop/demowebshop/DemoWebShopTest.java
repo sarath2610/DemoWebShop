@@ -92,11 +92,6 @@ public class DemoWebShopTest {
         ((JavascriptExecutor)driver).executeScript("window.scrollBy(0,-1000)");
         driver.findElement(By.className("cart-label")).click();
         String subTotal = driver.findElement(By.xpath("//*[text()='Sub-Total:']/../following-sibling::td//span[@class='product-price']")).getText();
-        /*int price1 = Integer.parseInt(price);
-        int totalPrice = price1 + price1 + 30;
-        System.out.println(subTotal);
-        System.out.println(totalPrice);
-        assert(subTotal.equals(totalPrice));*/
 
         // Select I agree Checkbox
         driver.findElement(By.id("termsofservice")).click();
