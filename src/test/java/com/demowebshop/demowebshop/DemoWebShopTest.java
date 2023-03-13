@@ -20,8 +20,8 @@ public class DemoWebShopTest {
     private WebDriver driver;
     private String baseUrl;
 
-    @SuppressWarnings("deprecation")
-	@Before
+
+    @Before
     public void setUp() throws Exception {
         // Set up the WebDriver instance and base URL
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Sarath Kumar\\Desktop\\WorkSpace\\demowebshop\\src\\main\\resources\\chromedriver.exe");
@@ -29,7 +29,7 @@ public class DemoWebShopTest {
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
         baseUrl = "http://demowebshop.tricentis.com/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
     }
 
