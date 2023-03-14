@@ -15,13 +15,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-public class DemoWebShopTest {
+public class DemoWebShopTest_UsingJunit {
 
     private WebDriver driver;
     private String baseUrl;
+    private String email = "planittest78@gmail.com";
+    private String password = "123456";
+    private String qtyValue = "2";
 
-
-    @Before
+	@Before
     public void setUp() throws Exception {
         // Set up the WebDriver instance and base URL
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Sarath Kumar\\Desktop\\WorkSpace\\demowebshop\\src\\main\\resources\\chromedriver.exe");
@@ -42,14 +44,14 @@ public class DemoWebShopTest {
         driver.findElement(By.className("ico-login")).click();
 
         // Log in with given credentials
-        driver.findElement(By.id("Email")).sendKeys("planittest78@gmail.com");
-        driver.findElement(By.id("Password")).sendKeys("123456");
+        driver.findElement(By.id("Email")).sendKeys(email);
+        driver.findElement(By.id("Password")).sendKeys(password);
         driver.findElement(By.cssSelector("input[value='Log in']")).click();
 
         // Validate the user account ID on top right
         WebElement accountLink = driver.findElement(By.className("account"));
         String accountText = accountLink.getText();
-        assert(accountText.contains("planittest78@gmail.com"));
+        assert(accountText.contains(email));
 
         // Clear the shopping cart
         driver.findElement(By.className("cart-label")).click();
@@ -78,8 +80,8 @@ public class DemoWebShopTest {
         WebElement qty = driver.findElement(By.xpath("//input[@id='addtocart_72_EnteredQuantity']"));
         actions.moveToElement(qty).build().perform();
         qty.clear();
-        qty.sendKeys("2");
-        int finalPrice = convPrice * 2 ;
+        qty.sendKeys(qtyValue);
+        int finalPrice = convPrice * Integer.parseInt(qtyValue) ;
 
         // Click on “Add to cart”
         driver.findElement(By.xpath("//*[@class='add-to-cart-panel']//*[@value='Add to cart']")).click();
